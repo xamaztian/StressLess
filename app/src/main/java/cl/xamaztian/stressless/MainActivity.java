@@ -1,15 +1,24 @@
 package cl.xamaztian.stressless;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+
+import cl.xamaztian.stressless.models.Pending;
 
 public class MainActivity extends AppCompatActivity {
+
+    private PendingsFragment pendingsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +27,37 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        pendingsFragment = (PendingsFragment) getSupportFragmentManager().findFragmentById(R.id.pendingsFragment);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                final Dialog dialog = new Dialog(MainActivity.this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_pending);
+                dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                dialog.show();
+
+                ImageButton button = dialog.findViewById(R.id.savePendingBtn);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EditText input = dialog.findViewById(R.id.pendingEt);
+                        String name = input.getText().toString();
+
+                        if (name.trim().length() > 0) {
+                            Pending pending = new Pending();
+                            pending.setName(name);
+                            pending.setDone(false);
+                            pending.save();
+                            Log.d("SAVE", String.valueOf(pending));
+
+                            pendingsFragment.updateList(pending);
+                        }
+                    }
+                });
             }
         });
     }

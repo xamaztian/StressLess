@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,11 @@ import cl.xamaztian.stressless.models.Pending;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class PendingsFragment extends Fragment {
 
-    public MainActivityFragment() {
+    private PendingsAdapter adapter;
+
+    public PendingsFragment() {
     }
 
     @Override
@@ -37,14 +40,19 @@ public class MainActivityFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        for (int i = 0; i < 20; i++) {
-            Pending pending = new Pending();
-            pending.setName(String.valueOf(i));
-            pending.setDone(false);
-            pending.save();
-        }
+        //for (int i = 0; i < 20; i++) {
+        //    Pending pending = new Pending();
+        //    pending.setName(String.valueOf(i));
+        //    pending.setDone(false);
+        //    pending.save();
+        //}
 
-        PendingsAdapter adapter = new PendingsAdapter();
+        adapter = new PendingsAdapter();
         recyclerView.setAdapter(adapter);
+    }
+
+    public void updateList(Pending pending){
+        adapter.update(pending);
+        Log.d("pending", pending.getName());
     }
 }
