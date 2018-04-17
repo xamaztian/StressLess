@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import cl.xamaztian.stressless.adapters.PendingsAdapter;
 import cl.xamaztian.stressless.models.Pending;
@@ -17,7 +18,7 @@ import cl.xamaztian.stressless.models.Pending;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PendingsFragment extends Fragment {
+public class PendingsFragment extends Fragment implements PendingClickListener{
 
     private PendingsAdapter adapter;
 
@@ -47,12 +48,17 @@ public class PendingsFragment extends Fragment {
         //    pending.save();
         //}
 
-        adapter = new PendingsAdapter();
+        adapter = new PendingsAdapter(this);
         recyclerView.setAdapter(adapter);
     }
 
     public void updateList(Pending pending){
         adapter.update(pending);
         Log.d("pending", pending.getName());
+    }
+
+    @Override
+    public void clickeId(long id) {
+        Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
     }
 }

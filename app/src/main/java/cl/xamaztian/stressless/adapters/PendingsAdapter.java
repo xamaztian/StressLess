@@ -26,6 +26,10 @@ public class PendingsAdapter extends RecyclerView.Adapter<PendingsAdapter.ViewHo
 
     private PendingClickListener listener;
 
+    public PendingsAdapter(PendingClickListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_pending, parent, false);
@@ -41,7 +45,7 @@ public class PendingsAdapter extends RecyclerView.Adapter<PendingsAdapter.ViewHo
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -60,7 +64,8 @@ public class PendingsAdapter extends RecyclerView.Adapter<PendingsAdapter.ViewHo
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Pending auxPending = pendings.get(holder.getAdapterPosition());
+                listener.clickeId(auxPending.getId());
             }
         });
     }
@@ -70,7 +75,7 @@ public class PendingsAdapter extends RecyclerView.Adapter<PendingsAdapter.ViewHo
         return pendings.size();
     }
 
-    public void update(Pending pending){
+    public void update(Pending pending) {
         pendings.add(pending);
         notifyDataSetChanged();
     }
