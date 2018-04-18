@@ -1,4 +1,4 @@
-package cl.xamaztian.stressless;
+package cl.xamaztian.stressless.views;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import cl.xamaztian.stressless.R;
 import cl.xamaztian.stressless.models.Pending;
 
 public class MainActivity extends AppCompatActivity {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                             pending.setName(name);
                             pending.setDone(false);
                             pending.save();
-                            Log.d("SAVE", String.valueOf(pending));
+                            input.setText("");
 
                             pendingsFragment.updateList(pending);
                         }

@@ -1,4 +1,4 @@
-package cl.xamaztian.stressless;
+package cl.xamaztian.stressless.adapters;
 
 /**
  * Created by Xamaztian on 17-04-2018.

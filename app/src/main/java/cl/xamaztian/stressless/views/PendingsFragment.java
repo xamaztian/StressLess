@@ -1,24 +1,30 @@
-package cl.xamaztian.stressless;
+package cl.xamaztian.stressless.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import cl.xamaztian.stressless.R;
+import cl.xamaztian.stressless.adapters.PendingClickListener;
 import cl.xamaztian.stressless.adapters.PendingsAdapter;
 import cl.xamaztian.stressless.models.Pending;
+import cl.xamaztian.stressless.views.details.DetailsActivity;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PendingsFragment extends Fragment implements PendingClickListener{
+public class PendingsFragment extends Fragment implements PendingClickListener {
+
+    public static final String ID_PENDING = "cl.xamaztian.stressless.views.details.DetailsActivity.KEY.ID_PENDING";
 
     private PendingsAdapter adapter;
 
@@ -60,5 +66,8 @@ public class PendingsFragment extends Fragment implements PendingClickListener{
     @Override
     public void clickeId(long id) {
         Toast.makeText(getContext(), String.valueOf(id), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), DetailsActivity.class);
+        intent.putExtra(ID_PENDING, id);
+        startActivity(intent);
     }
 }
