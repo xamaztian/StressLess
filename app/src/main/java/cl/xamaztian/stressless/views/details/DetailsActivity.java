@@ -27,8 +27,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         editText = findViewById(R.id.descriptionEt);
 
-        Toast.makeText(this, pending.getName(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, pending.getDescription(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

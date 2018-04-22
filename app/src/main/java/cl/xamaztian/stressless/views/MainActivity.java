@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
                             input.setText("");
 
                             pendingsFragment.updateList(pending);
+
+                            dialog.dismiss();
                         }
                     }
                 });
